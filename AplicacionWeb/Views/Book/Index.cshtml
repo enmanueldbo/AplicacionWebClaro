@@ -54,7 +54,7 @@
 
     function deleteBook(id) {
         var bookID = id;
-
+        url = window.location.origin;
         Swal.fire({
             title: '¿Está Seguro?',
             text: "El registro de eliminara de forma permanente.",
@@ -66,8 +66,8 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 console.log(id);
-
-                $.post("https://localhost:44377/book/delete",
+                
+                $.post(url+"/book/delete",
                     { 'id': bookID },
                     function (data) {
                         console.log(data);
