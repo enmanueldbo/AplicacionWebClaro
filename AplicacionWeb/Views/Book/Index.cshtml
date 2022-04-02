@@ -1,0 +1,120 @@
+﻿@model IEnumerable<AplicacionWeb.Models.Book>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+<br />
+
+<div>
+    <a class="btn btn-success" href="/book/Create">Add Book</a>
+</div>
+
+<table class="table">
+    <thead style="background-color:ghostwhite">
+        <tr>
+            <th>Title</th>          
+            <th>PageCount</th>          
+            <th>Publish Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    <p>@item.Title</p>
+                </td>
+             
+
+                <td>
+                    <p>@item.PageCount</p>
+                </td>
+             
+
+                <td>
+                    <p>@item.PublishDate</p>
+                </td>
+
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn btn-success" })         
+                    @Html.ActionLink("Details", "Details", new { id = item.ID }, new { @class= "btn btn-info" })
+                    <button class="btn btn-danger" id="deleteButton" onclick="deleteBook(@item.ID)">Delete</button>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+
+<script type="text/javascript">
+
+    function deleteBook(id) {
+        var bookID = id;
+
+        Swal.fire({
+            title: '¿Está Seguro?',
+            text: "El registro de eliminara de forma permanente.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirmar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                console.log(id);
+
+                $.post("https://localhost:44377/book/delete",
+                    { 'id': bookID },
+                    function (data) {
+                        console.log(data);
+                        if (data = 1) {
+                            Swal.fire(
+                                'Eliminado!',
+                                'El archivo fue eliminado.',
+                                'success'
+                            )
+                        }
+
+                        else {
+                            Swal.fire(
+                                'Error!',
+                                'Hubo un error eliminando el archivo.',
+                                'warning'
+                            )
+                        }
+                       
+                    }
+                )
+            }
+        })
+    }
+
+
+    $('document').ready(function () {
+
+        var error = "@ViewBag.ErrorMessage";
+        var callback = "@ViewBag.CallBack";
+
+        console.log(error);
+        console.log(callback);
+
+        if (callback) {
+            if (error) {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'Error thrown!',
+                    showConfirmButton: false,
+                    timer: 2500
+                })
+            }
+
+        }
+    })
+
+
+</script>

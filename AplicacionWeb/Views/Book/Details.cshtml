@@ -1,0 +1,78 @@
+﻿@model AplicacionWeb.Models.Book
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<br />
+<h2>Book's details</h2>
+<hr />
+<style>
+    input, textarea {
+        max-width: 100%;
+    }
+</style>
+<form action="/" class="form">
+
+
+    <div class="mb-3">
+        <label for="Title" class="form-label">Title</label>
+        <input type="text" class="form-control" id="Title" name="Title" value="@Model.Title">
+    </div>
+
+    <div class="mb-3">
+        <label for="PageCount" class="form-label">PageCount</label>
+        <input type="number" class="form-control" id="PageCount" name="PageCount" value="@Model.PageCount">
+    </div>
+
+
+    <div class="mb-3">
+
+        <label class="form-label" for="PublishDate">Publish Date</label>
+        <input type="datetime" class="form-control" id="PublishDate" name="PublishDate" value="@Model.PublishDate">
+
+
+    </div>
+
+    <div class="mb-3">
+
+        <label class="form-label" for="Description">Description</label>
+        <textarea rows="4" class="form-control text" id="Description" name="Description">@Model.Description</textarea>
+
+    </div>
+
+    <div class="mb-3">
+        <label for="Excerpt" class="form-label">Excerpt</label>
+        <textarea rows="4" class="form-control text" id="Excerpt" name="Excerpt">@Model.Excerpt</textarea>
+
+    </div>
+    <br />
+
+</form>
+
+<p>
+    @Html.ActionLink("Click here  to editing it", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+
+<script>
+
+
+    $('document').ready(function () {
+
+        var error = "@ViewBag.ErrorMessage";
+            if (error) {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'Error thrown looking the book!',
+                    showConfirmButton: false,
+                    timer: 2500
+                })
+            }
+        })
+
+
+
+</script>

@@ -1,0 +1,86 @@
+﻿@model AplicacionWeb.Models.Book
+
+
+@{ ViewBag.Title = "Create"; }
+
+<h2>Add New Book</h2>
+
+<style>
+    input, textarea {
+        max-width: 100%;
+    }
+</style>
+<form action="/book/create" class="form" method="post">
+    <div class="mb-3">
+        <label for="Title" class="form-label">Title</label>
+        <input type="text" class="form-control" id="Title" name="Title">
+    </div>
+
+    <div class="mb-3">
+        <label for="Page Count" class="form-label">PageCount</label>
+        <input type="number" class="form-control" id="PageCount" name="PageCount">
+    </div>
+
+
+    <div class="mb-3">
+
+        <label class="form-label" for="PublishDate">Publish Date</label>
+        <input type="datetime-local" class="form-control" id="PublishDate" name="PublishDate">
+
+
+    </div>
+
+    <div class="mb-3">
+
+        <label class="form-label" for="Description">Description</label>
+        <textarea rows="4" class="form-control text" id="Description" name="Description"></textarea>
+
+    </div>
+
+    <div class="mb-3">
+        <label for="Excerpt" class="form-label">Excerpt</label>
+        <textarea rows="4" class="form-control text" id="Excerpt" name="Excerpt"></textarea>
+
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary" id="SaveForm">Save</button>
+
+</form>
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script>
+
+    $('document').ready(function () {
+
+        var error = "@ViewBag.ErrorMessage";
+        var posted = "@ViewBag.Posted";
+        if (posted) {
+            if (error) {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'Error thrown adding the book!',
+                    showConfirmButton: false,
+                    timer: 2500
+                })
+            }
+            else {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'The Book has been added!',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+        }
+
+        
+    })
+
+
+</script>
